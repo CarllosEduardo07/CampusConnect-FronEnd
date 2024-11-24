@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 export default function Login() {
   return (
     <section className='w-full h-full flex justify-center items-center relative bg-purple-200'>
-      <article className='h-[35%] w-[400px] rounded-3xl bg-white flex items-center justify-center flex-col'>
+      <article className='h-[55%] md:h-[35%]  w-[400px] rounded-3xl bg-white flex items-center justify-center flex-col'>
         <img src={logo} alt='campus connect' className='w-40 mx-auto' />
 
         <form className='w-4/5 space-y-5 flex flex-col'>
