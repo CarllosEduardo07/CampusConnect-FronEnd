@@ -54,10 +54,10 @@ export default function Cadastrar() {
   return (
     <section className='w-full h-screen bg-bannerImg bg-no-repeat bg-cover bg-bottom flex justify-center items-center'>
       <section className='w-full h-full flex justify-center items-center'>
-        <article className='bg-white p-8 rounded-3xl w-1/3'>
+        <article className='bg-white p-8 rounded-3xl w-auto md:w-[50%] lg:w-1/3 xl:w-[500px] '>
           <img src={campusconnectlogo} alt='logocampusconnect' className='w-40 mx-auto' />
 
-          <form onSubmit={handleSubmit(handleCreateUser)} className='mt-5 space-y-5 flex flex-col'>
+          <form onSubmit={handleSubmit(handleCreateUser)} className=' mt-5 space-y-5 flex flex-col'>
             <Input type='text' placeholder='Nome Completo' {...register('fullName')} />
             {errors.fullName && <p className='text-red-500'>{errors.fullName.message}</p>}
             <Input type='email' placeholder='Email' {...register('email')} />
@@ -88,9 +88,7 @@ export default function Cadastrar() {
           </form>
         </article>
 
-        <figure className='w-2/5 ml-5'>
-          <img src={parttwocadastro} alt='cadastroimg' />
-        </figure>
+        <img src={parttwocadastro} alt='cadastroimg' className=' hidden lg:block ml-5 w-[650px] h-[600px]' />
       </section>
     </section>
   );
