@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const userSchema = z.object({
   fullName: z.string().min(1, 'Nome completo é obrigatório'),
   email: z.string().email('E-mail inválido'),
-  cpf: z.string().min(11, "CPF inválido"),
+  cpf: z.string().min(11, 'CPF inválido'),
   registration: z.string(),
   password: z
     .string()
