@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import EditarPerfil from "./pages/perfil";
-import Forum from "./pages/page-forum/forum";
-import Login from "./pages/login";
 import Cadastrar from "./pages/cadastrar";
+import Login from "./pages/login";
+import Forum from "./pages/page-forum/forum";
+import EditarPerfil from "./pages/perfil";
 
 export default function App() {
   return (
