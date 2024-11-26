@@ -146,13 +146,13 @@ export default function Forum() {
             .fill(null)
             .map((_, index) => (
               // Exibe o Skeleton durante o carregamento
-              <Skeleton key={index} className='bg-white p-10 mt-10 w-[90%] mx-auto flex flex-col items-start space-y-5 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_4px_8px]'>
+              <Skeleton key={index} className='bg-white p-10 mt-10 w-[95%] lg:w-[70%] mx-auto flex flex-col items-start space-y-5 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_4px_8px]'>
                 <article className='flex gap-x-8'>
                   <Skeleton className='w-8 h-36 space-y-5 flex flex-col items-center'></Skeleton>
 
                   <article className='space-y-4'>
                     <div className='space-y-2'>
-                      <Skeleton className='h-4 w-[900px]'></Skeleton>
+                      <Skeleton className='h-4 w-[250px] md:w-[600px] lg:w-[1000px] '></Skeleton>
                       <Skeleton className='h-4 w-[100px]'></Skeleton>
                     </div>
                     <Skeleton className='h-20 w-full'></Skeleton>
@@ -164,7 +164,7 @@ export default function Forum() {
               </Skeleton>
             ))
         : filteredPost.map(post => (
-            <section key={post.id} className='bg-white p-10 mt-10 w-[90%] mx-auto flex flex-col items-start space-y-7 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_4px_8px]'>
+            <section key={post.id} className='bg-white p-5 md:p-10 mt-10 w-[95%] lg:w-[70%] mx-auto flex flex-col items-start space-y-7 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_4px_8px]'>
               <article className='flex items-start gap-x-8 w-full'>
                 <div className='space-y-2 flex flex-col items-center'>
                   <ArrowBigUp strokeWidth={1.5} size={30} absoluteStrokeWidth className='cursor-pointer text-zinc-600 hover:text-zinc-900' />
@@ -174,7 +174,7 @@ export default function Forum() {
 
                 <article className=' space-x-1 w-full text-xs text-zinc-500 flex flex-col '>
                   <div className='space-y-1'>
-                    <h1 className='text-xl text-purple-700 font-semibold'>{post.title}</h1>
+                    <h1 className='text-base md:text-xl text-purple-700 font-semibold'>{post.title}</h1>
                     <p>
                       <strong>{usuarios[post.profileId]?.name || 'Nome não encontrado'} • </strong>
                       {post.createdAt}
