@@ -30,12 +30,14 @@ export default function Forum() {
 
   const fetchPosts = async () => {
     try {
-      setTimeout(async () => {
-        const fetchedPosts = await getPosts();
-        const usuariosMap: { [key: string]: PerfilInterface } = {};
+      const fetchedPosts = await getPosts();
+      console.log(fetchedPosts);
 
-        // Obtém informações de usuários relacionados aos post
-        const userPromises = fetchedPosts.map(async (post: any) => {
+      const usuariosMap: { [key: string]: PerfilInterface } = {};
+
+      if (Array.isArray(fetchedPosts)) {
+        // Usando 'for' em vez de 'forEach'
+        for (const post of fetchedPosts) {
           if (!usuariosMap[post.profileId]) {
             try {
               const usuarioResponse = await getPerfilPorId(post.profileId);
@@ -44,7 +46,6 @@ export default function Forum() {
                 usuariosMap[post.profileId] = usuarioResponse.data;
               }
             } catch (error) {
-              // Tratar erro e adicionar usuário excluído
               console.warn(`Usuário com ID ${post.profileId} não encontrado.`);
               usuariosMap[post.profileId] = {
                 id: post.profileId,
@@ -54,15 +55,13 @@ export default function Forum() {
               };
             }
           }
-          // Carrega a contagem de comentários para o post
-          fetchCommentsCount(post.id);
-        });
 
-        await Promise.all(userPromises);
+          // Carregar a contagem de comentários para o post
+          await fetchCommentsCount(post.id);
+        }
 
-        //Posts com a data formatada
+        // Ordenar os posts mais recentes e formatar as datas
         const formattedSortedPosts = fetchedPosts
-          //comparando para ordenar do mais recente
           .sort((a: Post, b: Post) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
           .map((post: Post) => ({
             ...post,
@@ -70,9 +69,9 @@ export default function Forum() {
           }));
 
         setPosts(formattedSortedPosts);
-        setLoading(false); // Dados carregados, altera o estado de carregamento
         setUsuarios(usuariosMap);
-      }, 1500);
+        setLoading(false); // Dados carregados, altera o estado de carregamento
+      }
     } catch (error) {
       console.log('Erro ao carregar Posts:', error);
       setLoading(false);
