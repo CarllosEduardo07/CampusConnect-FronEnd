@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 export default function NavBar() {
   const auth = useContext(AuthContext);
 
-  if (!auth) return <p>Carregando...</p>;
+  const handleLogout = () => {
+    auth?.logout(); // Chamar a função de logout do contexto
+  };
 
-  const { user } = auth;
-
-  return user ? (
+  return (
     <nav className='bg-purple-600 px-5 md:px-12 py-1 flex items-center justify-between'>
       <Link to='/forum'>
         <img src={logo_branca} alt='logo' className='w-28 md:w-36' />
@@ -24,7 +24,7 @@ export default function NavBar() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className='mr-10 mt-2 bg-white min-w-40 text-sm rounded-lg shadow-[rgba(0,_0,_0,_0.24)_0px_4px_8px] z-10'>
             <div className='p-2 flex flex-col'>
-              <DropdownMenuLabel className='px-2 py-1'>{user.fullName}</DropdownMenuLabel>
+              <DropdownMenuLabel className='px-2 py-1'>{auth?.user?.fullName || 'Usuário Não Encontrado'}</DropdownMenuLabel>
               {/* <DropdownMenuLabel className='px-2 py-1 text-xs text-zinc-500'>joao.silva@email.com</DropdownMenuLabel> */}
               <DropdownMenuSeparator />
             </div>
@@ -37,15 +37,15 @@ export default function NavBar() {
                 Perfil
               </Link>
               <DropdownMenuSeparator />
-              <Link to='/' className='px-3 py-1 hover:bg-zinc-200 rounded-lg '>
-                Sair
-              </Link>
+              {auth?.user && (
+                <Link to='/' onClick={handleLogout} className='px-3 py-1 hover:bg-zinc-200 rounded-lg '>
+                  Sair
+                </Link>
+              )}
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
     </nav>
-  ) : (
-    <p className='mt-32'>voce nao estar logado</p>
   );
 }

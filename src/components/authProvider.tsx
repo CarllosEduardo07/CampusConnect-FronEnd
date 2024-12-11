@@ -3,6 +3,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 interface AuthContextType {
   user: { id: number; fullName: string; token: string } | null;
   setUser: React.Dispatch<React.SetStateAction<{ id: number; fullName: string; token: string } | null>>;
+  logout: () => void; // Adicionar a função logout
 }
 
 // Criar o contexto com o tipo inicial como nulo
@@ -29,5 +30,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
     }
   }, []);
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
+
+  // Função de logout
+  const logout = () => {
+    localStorage.removeItem('token'); // Remover o token do localStorage
+    setUser(null); // Resetar o estado do usuário
+  };
+  return <AuthContext.Provider value={{ user, setUser, logout }}>{children}</AuthContext.Provider>;
 }

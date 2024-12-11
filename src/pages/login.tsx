@@ -1,14 +1,16 @@
 import logo from '@/assets/logo.png';
+import { AuthContext } from '@/components/authProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { postLogin } from '@/services/conexao';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const auth = useContext(AuthContext); // Acessar o AuthContext
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,6 +25,10 @@ export default function Login() {
       const response = await postLogin(novoLogin); // Certifique-se de que a função `postLogin` retorna o token
       if (response.token) {
         localStorage.setItem('token', response.token); // Salve o token no localStorage
+
+        //atualizando o estado do navbar, apos o login, para mostra o nome do usuario
+        const userData = JSON.parse(atob(response.token.split('.')[1])); // Decodificar payload JWT
+        auth?.setUser({ id: userData.userId, fullName: userData.fullName, token: response.token }); // Atualizar contexto
         navigate('/forum'); // Redirecione o usuário
       }
     } catch (error: any) {
