@@ -31,7 +31,6 @@ export default function Forum() {
   const fetchPosts = async () => {
     try {
       const fetchedPosts = await getPosts();
-      console.log(fetchedPosts);
 
       const usuariosMap: { [key: string]: PerfilInterface } = {};
 

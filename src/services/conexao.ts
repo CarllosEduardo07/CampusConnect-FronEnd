@@ -4,8 +4,7 @@ import { UsersInterface } from '@/interface/usersInterface';
 import { UserSchema } from '@/pages/cadastrar';
 import axios from 'axios';
 
-// const url = "http://localhost:3000";
-const url = 'https://api-campusconnect.up.railway.app';
+const url = import.meta.env.VITE_BACKEND_URL;
 
 //login
 export const postLogin = async (newLogin: any) => {
