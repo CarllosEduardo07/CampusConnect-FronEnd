@@ -1,10 +1,18 @@
 import foto_fake from '@/assets/foto_fake.png';
 import logo_branca from '@/assets/logo_branca.png';
+import { AuthContext } from '@/components/authProvider';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function NavBar() {
-  return (
+  const auth = useContext(AuthContext);
+
+  if (!auth) return <p>Carregando...</p>;
+
+  const { user } = auth;
+
+  return user ? (
     <nav className='bg-purple-600 px-5 md:px-12 py-1 flex items-center justify-between'>
       <Link to='/forum'>
         <img src={logo_branca} alt='logo' className='w-28 md:w-36' />
@@ -16,8 +24,8 @@ export default function NavBar() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className='mr-10 mt-2 bg-white min-w-40 text-sm rounded-lg shadow-[rgba(0,_0,_0,_0.24)_0px_4px_8px] z-10'>
             <div className='p-2 flex flex-col'>
-              <DropdownMenuLabel className='px-2 py-0'>João Silva</DropdownMenuLabel>
-              <DropdownMenuLabel className='px-2 py-1 text-xs text-zinc-500'>joao.silva@email.com</DropdownMenuLabel>
+              <DropdownMenuLabel className='px-2 py-1'>{user.fullName}</DropdownMenuLabel>
+              {/* <DropdownMenuLabel className='px-2 py-1 text-xs text-zinc-500'>joao.silva@email.com</DropdownMenuLabel> */}
               <DropdownMenuSeparator />
             </div>
 
@@ -37,5 +45,7 @@ export default function NavBar() {
         </DropdownMenu>
       </div>
     </nav>
+  ) : (
+    <p className='mt-32'>voce nao estar logado</p>
   );
 }
