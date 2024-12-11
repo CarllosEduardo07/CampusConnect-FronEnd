@@ -7,6 +7,12 @@ import axios from 'axios';
 // const url = "http://localhost:3000";
 const url = 'https://api-campusconnect.up.railway.app';
 
+//login
+export const postLogin = async (newLogin: any) => {
+  const response = await axios.post(`${url}/auth/login`, newLogin);
+  return response.data;
+};
+
 // Posts
 export const getPosts = async () => {
   const response = await axios.get(`${url}/api/posts`);
