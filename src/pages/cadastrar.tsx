@@ -8,7 +8,7 @@ import { createUser } from '@/services/conexao';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 //integração com o typescript
@@ -74,9 +74,9 @@ export default function Cadastrar() {
             {successMessage && <p className='text-green-500'>{successMessage}</p>} {/* Exibe a mensagem de sucesso */}
             {errorMessage && <p className='text-red-500'>{errorMessage}</p>} {/* Exibe a mensagem de erro */}
             <span className='mx-auto text-purple-700'>
-              <a href={`/`} className='hover:underline'>
+              <Link to='/' className='hover:underline'>
                 Já tem uma conta? <strong>Login</strong>
-              </a>
+              </Link>
             </span>
             <span className='mx-auto text-purple-700 text-center'>
               <strong>Junte-se</strong> a mais de <strong>2M</strong> de usuários <br />

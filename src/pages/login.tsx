@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { postLogin } from '@/services/conexao';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -45,9 +45,9 @@ export default function Login() {
           </Button>
           <p className='mx-auto text-sm'>
             Novo no Campus Connect?
-            <a href={'/cadastrar'} className='ml-1 text-purple-700 hover:underline'>
+            <Link to='/cadastrar' className='ml-1 text-purple-700 hover:underline'>
               Crie uma conta
-            </a>
+            </Link>
           </p>
         </form>
       </article>
