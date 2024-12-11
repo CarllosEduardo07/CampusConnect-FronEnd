@@ -3,4 +3,6 @@ dist
 dist-ssr
 *.local
 node_modules
+
+# Ignore environment files (e.g., .env)
 .env
