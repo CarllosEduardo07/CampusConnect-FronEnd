@@ -37,7 +37,7 @@ export default function NavBar() {
                 Perfil
               </Link>
               <DropdownMenuSeparator />
-              {auth?.user && (
+              {auth && (
                 <Link to='/' onClick={handleLogout} className='px-3 py-1 hover:bg-zinc-200 rounded-lg '>
                   Sair
                 </Link>

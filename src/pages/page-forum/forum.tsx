@@ -1,4 +1,3 @@
-import logo from '@/assets/logo.png';
 import { ApagarPostAlert } from '@/components/apagarPost-alert';
 import { AuthContext } from '@/components/authProvider';
 import { Comentarios } from '@/components/comentarios';
@@ -8,15 +7,13 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Post } from '@/interface/posts';
 import { PerfilInterface } from '@/interface/usersInterface';
-import animacaoManutenção from '@/pages/erro404/animacao-manutencao.json';
+import { NotAuth } from '@/pages/erro404/notAuth';
 import { apagarPost, getComentariosPorIdDoPost, getPerfilPorId, getPosts } from '@/services/conexao';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Lottie from 'lottie-react';
 import { ArrowBigDown, ArrowBigUp, FilePenLine, MessageCircleMore } from 'lucide-react';
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import NavBar from './navbar';
 
 // Configura o dayjs para usar o plugin
@@ -228,15 +225,6 @@ export default function Forum() {
           ))}
     </div>
   ) : (
-    <div className='h-screen flex flex-col items-center justify-center'>
-      <img src={logo} alt='' />
-      <p className='text-2xl'>
-        O Usuário não está <strong>Autenticado</strong> ou as credenciais fornecidas são inválidas.
-      </p>
-      <Link to='/' className='underline'>
-        Faça o login novamente clicando aqui
-      </Link>
-      <Lottie animationData={animacaoManutenção} loop={true} className='h-[30rem]' />
-    </div>
+    <NotAuth />
   );
 }

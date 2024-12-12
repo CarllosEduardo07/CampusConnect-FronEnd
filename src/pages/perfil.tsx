@@ -1,12 +1,17 @@
+import { AuthContext } from '@/components/authProvider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { NotAuth } from '@/pages/erro404/notAuth';
+import { useContext } from 'react';
 import NavBar from './page-forum/navbar';
 
 export default function EditarPerfil() {
-  return (
+  const auth = useContext(AuthContext);
+
+  return auth?.user ? (
     <div>
       <NavBar />
       {/* <div className='mt-10 h-screen flex items-center flex-col justify-start'>
@@ -113,5 +118,7 @@ export default function EditarPerfil() {
         </Card>
       </div>
     </div>
+  ) : (
+    <NotAuth />
   );
 }
