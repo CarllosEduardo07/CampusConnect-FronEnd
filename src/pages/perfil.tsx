@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import NavBar from './page-forum/navbar';
 
@@ -7,7 +9,7 @@ export default function EditarPerfil() {
   return (
     <div>
       <NavBar />
-      <div className='mt-10 h-screen flex items-center flex-col justify-start'>
+      {/* <div className='mt-10 h-screen flex items-center flex-col justify-start'>
         <section className=' p-4 w-[90%] md:w-[70%] lg:w-1/2 mx-auto bg-white shadow-[rgba(0,_0,_0,_0.35)_0px_4px_8px] rounded-lg'>
           <div className='flex flex-col'>
             <span className='text-purple-800 font-semibold text-2xl'>Editar Perfil</span>
@@ -61,6 +63,54 @@ export default function EditarPerfil() {
             </Button>
           </form>
         </section>
+      </div> */}
+      <div className='min-h-screen bg-gradient-to-b p-4 flex items-start justify-center'>
+        <Card className='w-full max-w-3xl'>
+          <CardHeader>
+            <CardTitle>Editar Perfil</CardTitle>
+            <CardDescription>Atualize suas informações pessoais e acadêmicas</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form className='space-y-6'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='space-y-2'>
+                  <Label htmlFor='fullName'>Nome Completo</Label>
+                  <Input id='fullName' type='text' placeholder='Digite seu nome completo' />
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='email'>E-mail</Label>
+                  <Input id='email' type='email' placeholder='Digite seu nome completo' />
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='registration'>Matrícula</Label>
+                  <Input id='registration' type='text' placeholder='Digite seu nome completo' />
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='course'>Curso</Label>
+                  <Input id='course' placeholder='Digite seu curso' />
+                </div>
+              </div>
+
+              <div className='space-y-2'>
+                <Label htmlFor='bio'>Biografia</Label>
+                <Textarea id='bio' placeholder='Conte um pouco sobre você' className='min-h-[120px]' />
+              </div>
+
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='space-y-2'>
+                  <Label htmlFor='semester'>Qual seu Semestre</Label>
+                  <Input id='semester' placeholder='Digite seu semestre atual' />
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='city'>Cidade</Label>
+                  <Input id='city' placeholder='Digite sua cidade' />
+                </div>
+              </div>
+
+              <Button className='w-full bg-purple-600 hover:bg-purple-700'>Salvar Alterações</Button>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
