@@ -2,7 +2,7 @@ import logo from '@/assets/logo.png';
 import { AuthContext } from '@/components/authProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { postLogin } from '@/services/conexao';
+import { getPerfilPorId, postLogin } from '@/services/conexao';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -28,8 +28,21 @@ export default function Login() {
 
         //atualizando o estado do navbar, apos o login, para mostra o nome do usuario
         const userData = JSON.parse(atob(response.token.split('.')[1])); // Decodificar payload JWT
+
+        const userId = userData.userId;
+
         auth?.setUser({ id: userData.userId, fullName: userData.fullName, token: response.token }); // Atualizar contexto
-        navigate('/forum'); // Redirecione o usuário
+
+        try {
+          const verificarPerfil = await getPerfilPorId(userId);
+          if (verificarPerfil) {
+            // Redireciona para o fórum se o perfil já existir
+            navigate('/forum');
+          }
+        } catch (error) {
+          // Se o perfil não existir, redireciona para criar perfil
+          navigate('/criar-perfil');
+        }
       }
     } catch (error: any) {
       setError(error.message || 'Ocorreu um erro ao tentar fazer login');
