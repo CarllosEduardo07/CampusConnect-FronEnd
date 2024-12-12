@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { perfilSchema } from '@/interface/criarPerfilInterface';
-import { userSchema } from '@/interface/usersInterface';
 import { createPerfil } from '@/services/conexao';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext, useState } from 'react';
@@ -26,15 +25,24 @@ export function CriarPerfil() {
 
   const auth = useContext(AuthContext);
 
-  async function handleCreatePerfil(data: PerfilSchema) {
+  const handleCreatePerfil = async (data: PerfilSchema) => {
+    console.log('teste');
+
     const updatedData = {
       ...data,
       pic: 'abc',
       userId: auth?.user?.id, // Substitua pelo ID do usuário correspondente
     };
 
+    const validatedData = perfilSchema.parse(updatedData); // Valida o schema
+    console.log(validatedData);
+
     try {
-      const validatedData = userSchema.parse(updatedData);
+      if (!auth) {
+        console.error('Usuário não autenticado:', auth);
+        setErrorMessage('Usuário não autenticado. Faça login novamente.');
+        return;
+      }
 
       const response = await createPerfil(validatedData);
 
@@ -45,9 +53,11 @@ export function CriarPerfil() {
         setErrorMessage('Erro ao Criar Perfil, tente Novamente!');
       }
     } catch (error) {
+      console.error('Erro ao criar perfil:', error);
       setErrorMessage('Erro ao conectar com o servidor. Tente novamente.');
     }
-  }
+    console.log('teste fim');
+  };
 
   return (
     <div className='min-h-screen bg-gradient-to-b p-4 flex items-center justify-center'>
@@ -57,7 +67,7 @@ export function CriarPerfil() {
           <CardDescription>Essas Informações vão ser exibidas para as outras pessoas</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className='space-y-6' onSubmit={handleSubmit(handleCreatePerfil)}>
+          <form onSubmit={handleSubmit(handleCreatePerfil)} className='space-y-6'>
             <div className='grid grid-cols-1 md:grid-cols-1 gap-6'>
               <div className='space-y-2'>
                 <Label htmlFor='fullName'>Nome Completo</Label>
@@ -70,7 +80,9 @@ export function CriarPerfil() {
             </div>
             {successMessage && <p className='text-green-500'>{successMessage}</p>} {/* Exibe a mensagem de sucesso */}
             {errorMessage && <p className='text-red-500'>{errorMessage}</p>} {/* Exibe a mensagem de erro */}
-            <Button className='w-full bg-purple-600 hover:bg-purple-700'>Salvar</Button>
+            <Button type='submit' className='w-full bg-purple-600 hover:bg-purple-700'>
+              Salvar
+            </Button>
           </form>
         </CardContent>
       </Card>
