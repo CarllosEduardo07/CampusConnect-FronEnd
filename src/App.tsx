@@ -6,6 +6,7 @@ import Cadastrar from './pages/cadastrar';
 import Login from './pages/login';
 import Forum from './pages/page-forum/forum';
 import EditarPerfil from './pages/perfil';
+import { CriarPerfil } from '@/pages/criarPerfil';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
             <Route path='/cadastrar' element={<Cadastrar />} />
             <Route path='/forum' element={<Forum />} />
             <Route path='/perfil' element={<EditarPerfil />} />
+            <Route path='/criar-perfil' element={<CriarPerfil />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </div>

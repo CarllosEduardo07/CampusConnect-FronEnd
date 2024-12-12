@@ -63,6 +63,10 @@ export const getPerfilPorId = async (id: number) => {
   const response = await api.get(`/api/profile/${id}`);
   return response.data;
 };
+export const createPerfil = async (newPerfil: any) => {
+  const response = await api.post(`/api/profile`, newPerfil);
+  return response.data;
+};
 
 // Comentarios
 export const getComentarios = async () => {
