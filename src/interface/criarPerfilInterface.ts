@@ -5,5 +5,5 @@ export const perfilSchema = z.object({
   name: z.string().min(4, 'Nome completo é obrigatório'),
   bio: z.string().optional(),
   pic: z.string().optional(),
-  userId: z.string(),
+  userId: z.number(),
 });
