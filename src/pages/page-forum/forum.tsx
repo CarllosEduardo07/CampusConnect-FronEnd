@@ -21,6 +21,8 @@ dayjs.extend(relativeTime);
 dayjs.locale('pt-br');
 
 export default function Forum() {
+  const auth = useContext(AuthContext);
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchPosts, setSearchPosts] = useState('');
@@ -29,8 +31,6 @@ export default function Forum() {
   }>({});
   const [usuarios, setUsuarios] = useState<{ [key: string]: PerfilInterface }>({});
   const [commentsCount, setCommentsCount] = useState<{ [key: string]: number }>({});
-
-  const auth = useContext(AuthContext);
 
   const fetchPosts = async () => {
     try {
