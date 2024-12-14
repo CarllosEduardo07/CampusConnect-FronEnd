@@ -18,21 +18,37 @@ export function CriarPost({ onPostCreated }: any) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Verifica se o usuário está logado
+    if (!auth?.user?.profileId) {
+      alert('Por favor, faça login antes de criar um post.');
+      return;
+    }
+
     const newPost: PostNew = {
       title,
       text,
       profileId: Number(auth?.user?.profileId),
       communityId: 1,
     };
+
     await createPosts(newPost);
 
     // Limpar os campos após o envio
-    setIsModalOpen(false);
-    setTitle('');
-    setText('');
+    try {
+      const response = await createPosts(newPost);
+      console.log('Post Criado com Sucesso', response);
 
-    // rederizando o componente quando criar o post, funcao repassada do componente forum
-    onPostCreated();
+      // Limpar os campos após o envio
+      setIsModalOpen(false);
+      setTitle('');
+      setText('');
+
+      // Recarregar o componente pai (se necessário)
+      onPostCreated();
+    } catch (error: any) {
+      console.error('Erro ao criar post:', error);
+      alert(`Erro ao criar post: ${error.response?.data?.message || 'Erro desconhecido.'}`);
+    }
   };
   return (
     <>

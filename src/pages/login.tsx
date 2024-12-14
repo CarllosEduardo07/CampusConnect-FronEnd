@@ -26,15 +26,23 @@ export default function Login() {
       if (response.token) {
         localStorage.setItem('token', response.token); // Salve o token no localStorage
 
-        //atualizando o estado do navbar, apos o login, para mostra o nome do usuario
-        const userData = JSON.parse(atob(response.token.split('.')[1])); // Decodificar payload JWT
+        // Decodificar o token JWT para obter os dados do usuário
+        const payloadBase64 = response.token.split('.')[1];
+        const userData = JSON.parse(atob(payloadBase64));
 
-        auth?.setUser({ id: userData.userId, fullName: userData.fullName, profileId: response.profileId, token: response.token }); // Atualizar contexto
+        // Atualizar o contexto com os dados do usuário
+        auth?.setUser({
+          id: userData.userId,
+          fullName: userData.fullName,
+          profileId: userData.profileId || response.profileId,
+          token: response.token,
+        });
 
         navigate('/forum');
       }
     } catch (error: any) {
-      setError(error.message || 'Ocorreu um erro ao tentar fazer login');
+      console.error('Erro ao fazer login:', error);
+      setError(error.response?.data?.message || 'Ocorreu um erro ao tentar fazer login');
     }
   };
 
