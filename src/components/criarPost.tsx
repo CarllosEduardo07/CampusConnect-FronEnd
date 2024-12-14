@@ -9,11 +9,11 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 
 export function CriarPost({ onPostCreated }: any) {
+  const auth = useContext(AuthContext);
+
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const auth = useContext(AuthContext)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ export function CriarPost({ onPostCreated }: any) {
     const newPost: PostNew = {
       title,
       text,
-      profileId: 2,
+      profileId: Number(auth?.user?.profileId),
       communityId: 1,
     };
     await createPosts(newPost);
