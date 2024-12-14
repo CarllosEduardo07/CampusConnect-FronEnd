@@ -1,7 +1,8 @@
+import { AuthContext } from '@/components/authProvider';
 import { PostNew } from '@/interface/posts';
 import { createPosts } from '@/services/conexao';
 import { CirclePlus } from 'lucide-react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Input } from './ui/input';
@@ -11,6 +12,8 @@ export function CriarPost({ onPostCreated }: any) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const auth = useContext(AuthContext)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

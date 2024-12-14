@@ -4,12 +4,19 @@ import parttwocadastro from '@/assets/parttwocadastro.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { userSchema } from '@/interface/usersInterface';
-import { createUser } from '@/services/conexao';
+import { createPerfil, createUser } from '@/services/conexao';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
+
+interface PerfilData {
+  name: string;
+  bio?: string;
+  pic: string;
+  userId: number;
+}
 
 //integração com o typescript
 export type UserSchema = z.infer<typeof userSchema>;
@@ -29,16 +36,27 @@ export default function Cadastrar() {
   });
 
   async function handleCreateUser(data: UserSchema) {
-    // console.log(data);
     const validatedData = userSchema.parse(data);
 
     try {
       const response = await createUser(validatedData);
 
+      const newPerfil: PerfilData = {
+        name: response.user.fullName,
+        bio: '',
+        pic: '',
+        userId: response.user.id,
+      };
+
+      const perfilNew = await createPerfil(newPerfil);
+      if (perfilNew) {
+        console.log('Perfil Criado com sucesso');
+      }
+
       if (response) {
         setSuccessMessage('Usuario Criado com Sucesso');
-        reset();
 
+        reset();
         setTimeout(() => {
           navigate('/');
         }, 1500);
@@ -48,7 +66,7 @@ export default function Cadastrar() {
     } catch (error) {
       setErrorMessage('Erro ao conectar com o servidor. Tente novamente.');
     }
-    console.log(validatedData);
+    console.log('usuario completo:', validatedData);
   }
 
   return (

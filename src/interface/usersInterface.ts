@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 //validação do forrmulario e interface
 export const userSchema = z.object({
+  id: z.number().optional(),
   fullName: z.string().min(1, 'Nome completo é obrigatório'),
   email: z.string().email('E-mail inválido'),
   cpf: z.string().min(11, 'CPF inválido'),
