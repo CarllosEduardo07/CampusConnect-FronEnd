@@ -2,13 +2,14 @@ import { ComentariosInterface } from '@/interface/comentariosInterface';
 
 import { apagarComentario, CreateComentarioNoPost, getComentariosPorIdDoPost } from '@/services/conexao';
 import { ArrowBigDown, ArrowBigUp, Send, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Textarea } from './ui/textarea';
 
 import { NewComentario } from '@/interface/newComentario';
 import { PerfilInterface } from '@/interface/usersInterface';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { AuthContext } from '@/components/authProvider';
 
 dayjs.extend(relativeTime);
 dayjs.locale('pt-br');
@@ -19,6 +20,8 @@ interface ComentariosProps {
 }
 
 export function Comentarios({ postId, usuarios }: ComentariosProps) {
+  const auth = useContext(AuthContext);
+
   const [comentarios, setComentarios] = useState<ComentariosInterface[]>([]);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
@@ -38,7 +41,6 @@ export function Comentarios({ postId, usuarios }: ComentariosProps) {
         setLoading(false);
       }
     };
-    console.log(usuarios);
     
 
     fetchComentariosPorPost();
@@ -54,7 +56,7 @@ export function Comentarios({ postId, usuarios }: ComentariosProps) {
 
     const comentarioNew: NewComentario = {
       text,
-      profileId: 1,
+      profileId: Number(auth?.user?.profileId),
       postId: postId,
     };
 
