@@ -88,7 +88,7 @@ npm run dev     # Modo de desenvolvimento com hot-reload
 
 ## Contribuindo 🤝
 
-Contribuições são bem-vindas! Por favor, veja nossas [Diretrizes de Contribuição](https://github.com/JulianoL13/CampusConnect-BackEnd/blob/main/COLLABORATION.md) para mais detalhes.
+Contribuições são bem-vindas! Por favor, veja nossas [Diretrizes de Contribuição](https://github.com/CarllosEduardo07/CampusConnect-FronEnd/blob/main/COLABORATION.md) para mais detalhes.
 
 1. Faça um fork do repositório
 2. Crie sua branch para a feature (`git checkout -b feature/NovaFuncionalidade`)
@@ -108,7 +108,7 @@ Contribuições são bem-vindas! Por favor, veja nossas [Diretrizes de Contribui
 
 ## Licença 📄
 
-Este projeto está licenciado sob a Licença GPL-3.0 - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está licenciado sob a Licença GPL-3.0 - veja o arquivo [LICENSE](https://github.com/CarllosEduardo07/CampusConnect-FronEnd/blob/main/LICENSE.txt) para detalhes.
 
 ## Agradecimentos 🙏
 
